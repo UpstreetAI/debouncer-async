@@ -1,5 +1,5 @@
 {
-  "name": "debouncer",
+  "name": "debouncer-async",
   "version": "0.0.1",
-  "main": "debouncer.mjs"
+  "main": "debouncer-async.mjs"
 }
