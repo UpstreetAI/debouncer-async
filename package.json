@@ -1,5 +1,7 @@
 {
   "name": "debouncer-async",
   "version": "0.0.1",
-  "main": "debouncer-async.mjs"
+  "main": "debouncer-async.mjs",
+  "types": "debouncer-async.d.ts",
+  "type": "module"
 }
