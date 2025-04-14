@@ -1,13 +1,16 @@
 export class Debouncer extends EventTarget {
   queueLength = 0;
+  timeout;
   running = false;
   queue = [];
   constructor({
     queueLength = 1,
+    timeout,
   } = {}) {
     super();
 
     this.queueLength = queueLength;
+    this.timeout = timeout;
   }
   isIdle() {
     return !this.running;
@@ -31,7 +34,12 @@ export class Debouncer extends EventTarget {
       this.running = false;
       if (this.queue.length > 0) {
         const entry = this.queue.shift();
-        this.waitForTurn(entry.call);
+        this.waitForTurn(async () => {
+          if (typeof this.timeout === 'number') {
+            await new Promise(resolve => setTimeout(resolve, this.timeout));
+          }
+          await entry.call();
+        });
       } else {
         this.dispatchEvent(new MessageEvent('idlechange', {
           data: {
